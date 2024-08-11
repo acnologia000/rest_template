@@ -40,6 +40,8 @@ type Config struct {
 	} `json:"logging"`
 }
 
+var JwtKey = ""
+
 func LoadConfig(configFilePath string) (*Config, error) {
 	configFile, err := os.Open(configFilePath)
 	if err != nil {
@@ -57,7 +59,7 @@ func LoadConfig(configFilePath string) (*Config, error) {
 	if err := config.validate(); err != nil {
 		return nil, fmt.Errorf("invalid configuration: %v", err)
 	}
-
+	JwtKey = config.JwtKey
 	return &config, nil
 }
 
